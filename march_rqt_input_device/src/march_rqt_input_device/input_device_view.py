@@ -176,6 +176,18 @@ class InputDevicePlugin(Plugin):
             self.create_button('gait_tilted_path_second_end',
                                callback=lambda: self.controller.publish_gait('gait_tilted_path_second_end'))
 
+        gait_joint_test_both_legs = \
+            self.create_button('gait_joint_test_both_legs',
+                               callback=lambda: self.controller.publish_gait('gait_joint_test_both_legs'))
+
+        gait_joint_test_left_leg = \
+            self.create_button('gait_joint_test_left_leg',
+                               callback=lambda: self.controller.publish_gait('gait_joint_test_left_leg'))
+
+        gait_joint_test_right_leg = \
+            self.create_button('gait_joint_test_right_leg',
+                               callback=lambda: self.controller.publish_gait('gait_joint_test_right_leg'))
+
         stop_button = self.create_button('gait_stop', image_path='/stop.png',
                                          callback=lambda: self.controller.publish_stop())
 
@@ -210,6 +222,8 @@ class InputDevicePlugin(Plugin):
 
             [gait_tilted_path_first_start, gait_tilted_path_second_start, gait_tilted_path_first_end,
              gait_tilted_path_second_end],
+
+            [gait_joint_test_both_legs, gait_joint_test_left_leg, gait_joint_test_right_leg],
         ]
 
         # Create the qt_layout from the button layout.
