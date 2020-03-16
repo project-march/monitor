@@ -68,6 +68,10 @@ class InputDevicePlugin(Plugin):
             self.create_button('gait_walk_small', image_path='/gait_walk_small.png',
                                callback=lambda: self.controller.publish_gait('gait_walk_small'))
 
+        gait_walk_large = \
+            self.create_button('gait_walk_large',
+                               callback=lambda: self.controller.publish_gait('gait_walk_large'))
+
         gait_single_step_small = \
             self.create_button('gait_single_step_small', image_path='/gait_single_step_small.png',
                                callback=lambda: self.controller.publish_gait('gait_single_step_small'))
@@ -112,6 +116,14 @@ class InputDevicePlugin(Plugin):
             self.create_button('gait_stairs_down', image_path='/gait_stairs_down.png',
                                callback=lambda: self.controller.publish_gait('gait_stairs_down'))
 
+        gait_stairs_up_single_step = \
+            self.create_button('gait_stairs_up_single_step',
+                               callback=lambda: self.controller.publish_gait('gait_stairs_up_single_step'))
+
+        gait_stairs_down_single_step = \
+            self.create_button('gait_stairs_down_single_step',
+                               callback=lambda: self.controller.publish_gait('gait_stairs_down_single_step'))
+
         gait_rough_terrain_high_step = \
             self.create_button('gait_rough_terrain_high_step',
                                callback=lambda: self.controller.publish_gait('gait_rough_terrain_high_step'))
@@ -119,6 +131,18 @@ class InputDevicePlugin(Plugin):
         gait_rough_terrain_middle_steps = \
             self.create_button('gait_rough_terrain_middle_steps',
                                callback=lambda: self.controller.publish_gait('gait_rough_terrain_middle_steps'))
+
+        gait_rough_terrain_first_middle_step = \
+            self.create_button('gait_rough_terrain_first_middle_step',
+                               callback=lambda: self.controller.publish_gait('gait_rough_terrain_first_middle_step'))
+
+        gait_rough_terrain_second_middle_step = \
+            self.create_button('gait_rough_terrain_second_middle_step',
+                               callback=lambda: self.controller.publish_gait('gait_rough_terrain_second_middle_step'))
+
+        gait_rough_terrain_third_middle_step = \
+            self.create_button('gait_rough_terrain_third_middle_step',
+                               callback=lambda: self.controller.publish_gait('gait_rough_terrain_third_middle_step'))
 
         gait_ramp_door_slope_up = \
             self.create_button('gait_ramp_door_slope_up',
@@ -132,13 +156,37 @@ class InputDevicePlugin(Plugin):
             self.create_button('gait_ramp_door_last_step',
                                callback=lambda: self.controller.publish_gait('gait_ramp_door_last_step'))
 
-        gait_tilted_path_straight_start_right = \
-            self.create_button('gait_tilted_path_straight_start_right',
-                               callback=lambda: self.controller.publish_gait('gait_tilted_path_straight_start_right'))
+        gait_tilted_path_left_straight_start = \
+            self.create_button('gait_tilted_path_left_straight_start',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_left_straight_start'))
 
-        gait_tilted_path_straight_start_left = \
-            self.create_button('gait_tilted_path_straight_start_left',
-                               callback=lambda: self.controller.publish_gait('gait_tilted_path_straight_start_left'))
+        gait_tilted_path_left_single_step = \
+            self.create_button('gait_tilted_path_left_single_step',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_left_single_step'))
+
+        gait_tilted_path_left_straight_end = \
+            self.create_button('gait_tilted_path_left_straight_end',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_left_straight_end'))
+
+        gait_tilted_path_left_flexed_knee_step = \
+            self.create_button('gait_tilted_path_left_flexed_knee_step',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_left_flexed_knee_step'))
+
+        gait_tilted_path_right_straight_start = \
+            self.create_button('gait_tilted_path_right_straight_start',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_right_straight_start'))
+
+        gait_tilted_path_right_single_step = \
+            self.create_button('gait_tilted_path_right_single_step',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_right_single_step'))
+
+        gait_tilted_path_right_straight_end = \
+            self.create_button('gait_tilted_path_right_straight_end',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_right_straight_end'))
+
+        gait_tilted_path_right_flexed_knee_step = \
+            self.create_button('gait_tilted_path_right_flexed_knee_step',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_right_flexed_knee_step'))
 
         gait_tilted_path_first_start = \
             self.create_button('gait_tilted_path_first_start',
@@ -147,6 +195,14 @@ class InputDevicePlugin(Plugin):
         gait_tilted_path_second_start = \
             self.create_button('gait_tilted_path_second_start',
                                callback=lambda: self.controller.publish_gait('gait_tilted_path_second_start'))
+
+        gait_tilted_path_first_end = \
+            self.create_button('gait_tilted_path_first_end',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_first_end'))
+
+        gait_tilted_path_second_end = \
+            self.create_button('gait_tilted_path_second_end',
+                               callback=lambda: self.controller.publish_gait('gait_tilted_path_second_end'))
 
         stop_button = self.create_button('gait_stop', image_path='/stop.png',
                                          callback=lambda: self.controller.publish_stop())
@@ -164,20 +220,29 @@ class InputDevicePlugin(Plugin):
         # Position in the array determines position on screen.
         march_button_layout = [
 
-            [home_sit, home_stand, gait_walk, gait_walk_small, stop_button, pause_button],
+            [home_sit, home_stand, gait_walk, gait_walk_small, gait_walk_large, stop_button, pause_button],
 
             [gait_sit, gait_stand, gait_single_step_normal, gait_single_step_small, continue_button, error_button],
 
-            [gait_sofa_sit, gait_sofa_stand, gait_stairs_up, gait_stairs_down, rocker_switch_increment,
-             rocker_switch_decrement],
+            [gait_sofa_sit, gait_sofa_stand, rocker_switch_increment, rocker_switch_decrement],
+
+            [gait_stairs_up, gait_stairs_down, gait_stairs_up_single_step, gait_stairs_down_single_step],
 
             [gait_side_step_left, gait_side_step_right, gait_side_step_left_small, gait_side_step_right_small],
 
-            [gait_rough_terrain_high_step, gait_rough_terrain_middle_steps, gait_ramp_door_slope_up,
-             gait_ramp_door_slope_down, gait_ramp_door_last_step],
+            [gait_rough_terrain_high_step, gait_rough_terrain_middle_steps, gait_rough_terrain_first_middle_step,
+             gait_rough_terrain_second_middle_step, gait_rough_terrain_third_middle_step],
 
-            [gait_tilted_path_straight_start_right, gait_tilted_path_straight_start_left, gait_tilted_path_first_start,
-             gait_tilted_path_second_start],
+            [gait_ramp_door_slope_up, gait_ramp_door_slope_down, gait_ramp_door_last_step],
+
+            [gait_tilted_path_left_straight_start, gait_tilted_path_left_single_step,
+             gait_tilted_path_left_straight_end, gait_tilted_path_left_flexed_knee_step],
+
+            [gait_tilted_path_right_straight_start, gait_tilted_path_right_single_step,
+             gait_tilted_path_right_straight_end, gait_tilted_path_right_flexed_knee_step],
+
+            [gait_tilted_path_first_start, gait_tilted_path_second_start, gait_tilted_path_first_end,
+             gait_tilted_path_second_end],
         ]
 
         # Create the qt_layout from the button layout.
