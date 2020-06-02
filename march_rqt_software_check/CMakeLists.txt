@@ -14,6 +14,6 @@ install(DIRECTORY launch resource
     DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
 
-install(PROGRAMS scripts/march_git_branch_check scripts/${PROJECT_NAME}
+catkin_install_python(PROGRAMS scripts/march_git_branch_check scripts/${PROJECT_NAME}
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
