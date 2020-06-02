@@ -400,4 +400,7 @@ def check_string(text):
     :return New string which contains newlines
     """
     words = enumerate(text.replace('_', ' ').split(' '))
-    return reduce(lambda acc, (i, x): acc + '\n' + x if i % 3 == 0 else acc + ' ' + x, words, '')[1:]
+    result = ''
+    for i, word in words:
+        result += '\n' + word if i % 3 == 0 else ' ' + word
+    return result[1:]
