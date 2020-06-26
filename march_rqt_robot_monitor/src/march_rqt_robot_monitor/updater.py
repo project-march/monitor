@@ -2,8 +2,6 @@ import diagnostic_updater
 import rospy
 from sensor_msgs.msg import JointState
 
-from march_shared_resources.msg import Alive
-
 from .diagnostic_analyzers.check_input_device import CheckInputDevice
 from .diagnostic_analyzers.control import CheckJointValues
 from .diagnostic_analyzers.gait_state import CheckGaitStatus
@@ -17,7 +15,7 @@ def main():
     updater.setHardwareID('MARCH IVc')
 
     # Frequency checks
-    CheckInputDevice('/march/input_device/alive', Alive, updater, 5)
+    CheckInputDevice(updater)
 
     # control checks
     check_current_movement_values = CheckJointValues('march/joint_states', JointState)
