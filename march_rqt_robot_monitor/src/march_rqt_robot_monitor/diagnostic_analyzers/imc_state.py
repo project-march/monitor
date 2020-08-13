@@ -1,7 +1,7 @@
 from diagnostic_msgs.msg import DiagnosticStatus
 import rospy
 
-from march_shared_resources.msg import ImcState
+from march_shared_resources.msg import MotorControllerState
 
 
 class CheckImcStatus:
@@ -11,7 +11,7 @@ class CheckImcStatus:
         :type updater: diagnostic_updater.Updater
         """
         self._updater = updater
-        self._sub = rospy.Subscriber('/march/imc_states', ImcState, self._cb)
+        self._sub = rospy.Subscriber('/march/motor_controller_states', MotorControllerState, self._cb)
         self._imc_state = None
 
         self._diagnostics = set()
@@ -19,7 +19,7 @@ class CheckImcStatus:
     def _cb(self, msg):
         """Callback for imc_states.
 
-        :type msg: ImcState
+        :type msg: MotorControllerState
         """
         self._imc_state = msg
         for i in range(len(msg.joint_names)):
