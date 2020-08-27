@@ -52,16 +52,6 @@
        </property>
       </widget>
      </item>
-     <item>
-      <widget class="QPushButton" name="refresh_button">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Refreshes the buttons with possible gaits&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="text">
-        <string>Refresh</string>
-       </property>
-      </widget>
-     </item>
     </layout>
    </item>
    <item>

@@ -1,7 +1,7 @@
 import os
 
 from python_qt_binding import loadUi
-from python_qt_binding.QtCore import QSize
+from python_qt_binding.QtCore import QMutex, QSize, QTimer
 from python_qt_binding.QtWidgets import QGridLayout
 from python_qt_binding.QtWidgets import QPushButton
 from python_qt_binding.QtWidgets import QWidget
@@ -32,7 +32,8 @@ class InputDeviceView(QWidget):
         # Extend the widget with all attributes and children from UI file
         loadUi(ui_file, self)
 
-        self.refresh_button.clicked.connect(self._update_possible_gaits)
+        self._update_gaits_mutex = QMutex()
+        self._start_possible_gaits_refresh_timer()
 
         self._create_buttons()
         self._update_possible_gaits()
@@ -325,7 +326,13 @@ class InputDeviceView(QWidget):
     def _current_gait_cb(self, gait_name):
         self.gait_label.setText(gait_name)
 
+    def _start_possible_gaits_refresh_timer(self):
+        self._gaits_timer = QTimer(self)
+        self._gaits_timer.timeout.connect(self._update_possible_gaits)
+        self._gaits_timer.start(500)
+
     def _update_possible_gaits(self):
+        self._update_gaits_mutex.lock()
         self.frame.setEnabled(False)
         self.frame.verticalScrollBar().setEnabled(False)
         possible_gaits = self._controller.get_possible_gaits()
@@ -343,6 +350,7 @@ class InputDeviceView(QWidget):
                     button.setEnabled(False)
         self.frame.setEnabled(True)
         self.frame.verticalScrollBar().setEnabled(True)
+        self._update_gaits_mutex.unlock()
 
     def create_button(self, name, callback=None, image_path=None, size=(128, 160), always_enabled=False):
         """Create a push button which the mock input device can register.
