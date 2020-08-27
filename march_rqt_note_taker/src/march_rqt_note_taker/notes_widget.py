@@ -92,7 +92,7 @@ class NotesWidget(QWidget):
                 ''' Get new value for entry '''
                 entry_content, ok = QInputDialog().getText(self, 'Edit Entry', 'Entry:', QLineEdit.Normal, entry.content)
                 if ok and entry_content:
-                    entry.content = entry_content
+                    entry.edit_content(entry_content)
                     ''' Delete the current data entry and input the new entry '''
                     self._model.remove_rows(indices[0].row())
                     new_row = indices[0].row()
