@@ -41,6 +41,9 @@ class EntryModel(QAbstractTableModel):
                 if column == 'entry' and entry.is_error:
                     return QBrush(Qt.darkRed)
 
+            if role == Qt.EditRole:
+                return entry
+
         return None
 
     def remove_rows(self, position, rows=1):
@@ -56,14 +59,17 @@ class EntryModel(QAbstractTableModel):
         self._entries = self._entries[:position] + self._entries[position + rows:]
         self.endRemoveRows()
 
-    def insert_row(self, entry):
+    def insert_row(self, entry, row=-1):
         """Appends an entry.
 
         :type entry: Entry
         :param entry: Entry to append to rows
+        :param row: Row number at which to add the entry
         """
-        self.beginInsertRows(QModelIndex(), self.rowCount(), self.rowCount())
-        self._entries.append(entry)
+        if row == -1:
+            row = self.rowCount()
+        self.beginInsertRows(QModelIndex(), row, row)
+        self._entries.insert(row, entry)
         self.endInsertRows()
 
     def insert_log_msg(self, log_msg):

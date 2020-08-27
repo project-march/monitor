@@ -28,3 +28,6 @@ class Entry(QObject):
     def __str__(self):
         """Returns a string representation of an Entry."""
         return '[{0}] {1}'.format(self.date_time.toString(), self.content)
+
+    def edit_content(self, content):
+        self.content = content

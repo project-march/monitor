@@ -2,7 +2,7 @@ import os
 
 from python_qt_binding import loadUi, QtCore
 from python_qt_binding.QtGui import QKeySequence
-from python_qt_binding.QtWidgets import QFileDialog, QShortcut, QWidget
+from python_qt_binding.QtWidgets import QFileDialog, QShortcut, QWidget, QInputDialog, QLineEdit
 import rospy
 
 from .entry import Entry
@@ -31,6 +31,7 @@ class NotesWidget(QWidget):
                                          self._autosave(first, last, self.REMOVE)])
 
         self.table_view.setModel(self._model)
+        self.table_view.doubleClicked.connect(self._edit_selected)
         self.table_view.verticalScrollBar().rangeChanged.connect(self._handle_change_scroll)
         self._last_scroll_max = self.table_view.verticalScrollBar().maximum()
 
@@ -80,6 +81,24 @@ class NotesWidget(QWidget):
             indices = [index for index in selection_model.selectedIndexes() if not index.column()]
             if indices and indices[0].isValid():
                 self._model.remove_rows(indices[0].row(), len(indices))
+
+    def _edit_selected(self):
+        selection_model = self.table_view.selectionModel()
+        if self.table_view.hasFocus() and selection_model.hasSelection():
+            indices = [index for index in selection_model.selectedIndexes() if not index.column()]
+            if indices and indices[0].isValid():
+                ''' Get the full entry from dataset '''
+                entry = self._model.data(indices[0], QtCore.Qt.EditRole)
+                ''' Get new value for entry '''
+                entry_content, ok = QInputDialog().getText(self, 'Edit Entry', 'Entry:', QLineEdit.Normal, entry.content)
+                if ok and entry_content:
+                    entry.content = entry_content
+                    ''' Delete the current data entry and input the new entry '''
+                    self._model.remove_rows(indices[0].row())
+                    new_row = indices[0].row()
+                    if new_row < 0: 
+                        new_row = 0
+                    self._model.insert_row(entry, new_row)
 
     def _set_saved(self, saved):
         self._can_save = not saved
