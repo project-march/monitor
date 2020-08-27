@@ -2,7 +2,7 @@ import os
 
 from python_qt_binding import loadUi, QtCore
 from python_qt_binding.QtGui import QKeySequence
-from python_qt_binding.QtWidgets import QFileDialog, QShortcut, QWidget, QInputDialog, QLineEdit
+from python_qt_binding.QtWidgets import QFileDialog, QInputDialog, QLineEdit, QShortcut, QWidget
 import rospy
 
 from .entry import Entry
@@ -87,16 +87,17 @@ class NotesWidget(QWidget):
         if self.table_view.hasFocus() and selection_model.hasSelection():
             indices = [index for index in selection_model.selectedIndexes() if not index.column()]
             if indices and indices[0].isValid():
-                ''' Get the full entry from dataset '''
+                """ Get the full entry from dataset """
                 entry = self._model.data(indices[0], QtCore.Qt.EditRole)
-                ''' Get new value for entry '''
-                entry_content, ok = QInputDialog().getText(self, 'Edit Entry', 'Entry:', QLineEdit.Normal, entry.content)
+                """ Get new value for entry """
+                entry_content, ok = QInputDialog().getText(self, 'Edit Entry', 'Entry:',
+                                                           QLineEdit.Normal, entry.content)
                 if ok and entry_content:
                     entry.edit_content(entry_content)
-                    ''' Delete the current data entry and input the new entry '''
+                    """ Delete the current data entry and input the new entry """
                     self._model.remove_rows(indices[0].row())
                     new_row = indices[0].row()
-                    if new_row < 0: 
+                    if new_row < 0:
                         new_row = 0
                     self._model.insert_row(entry, new_row)
 
